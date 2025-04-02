@@ -1,0 +1,11 @@
+Era uma vez um programador. O programador gostava de programar!
+Ele programava todos os dias, pois programar era sua paixao.
+Programar, programador, programacao... Tudo isso fazia parte do seu dia.
+
+Um belo dia, o programador encontrou um bug.
+O bug nao queria ir embora! "Por que esse bug está aqui?", pensou o programador.
+Ele tentou de tudo: revisar o codigo, testar outra abordagem...
+Mas o bug continuava la.
+
+No final, ele percebeu que o erro estava na logica.
+Assim, ele corrigiu o bug e seguiu programando feliz.

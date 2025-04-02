@@ -1,0 +1,3 @@
+4 Monitor@Axer 970.000000
+2 Mouse@Optron 102.000000
+89 Teclado@Pell 130.000000

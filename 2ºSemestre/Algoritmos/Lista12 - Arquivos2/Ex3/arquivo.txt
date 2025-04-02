@@ -1,0 +1,3 @@
+C is a general-purpose programming language, widely used and very influential.
+By design, C reflects the capabilities of the targeted CPUs, such as types,
+operations and memory access.
