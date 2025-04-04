@@ -84,3 +84,41 @@ void ListSeq::removeAt(int pos){
         return;
     }
 };
+
+int ListSeq::find(int elem){
+    for (int i = 0; i < size; i++)
+    {
+        if (elem == data[i])
+        {
+            return i;
+        }
+        
+    }
+    return -1;
+}
+
+int ListSeq::get(int pos){
+    if (pos >= size)
+    {
+        return -1;
+    }
+    
+    return data[pos];
+}
+
+void ListSeq::insert(int elem, int pos){
+
+    if (isFull())
+    {
+        return;
+    } 
+    
+    int* _data = new int[++capacity];
+
+    for (int i = 0; i < size; i++)
+    {
+        
+    }
+    
+
+}
