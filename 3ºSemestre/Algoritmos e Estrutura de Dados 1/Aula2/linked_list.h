@@ -31,10 +31,10 @@ public:
 
     Node* find(int key);
     
-    bool insert_after(int key, Node* pos);
+    void insert_after(int key, Node* pos);
     bool remove_after(Node* pos);
     
-    bool insert(int pos); //parâmetro cpa q n é esse
+    bool insert(int key, int pos);
     bool remove(int pos);
     bool remove(int key);
     
