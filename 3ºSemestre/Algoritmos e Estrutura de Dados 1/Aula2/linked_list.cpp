@@ -61,7 +61,19 @@ bool LinkedList::equals(LinkedList* other) {
 }
 
 int LinkedList::get(int pos) {
-    return 0;
+    Node* aux = this->head;
+
+    if (pos >= this->size())
+    {
+        return 0;
+    }
+
+    for (int i = 0; i <= pos; i++)
+    {
+        aux = aux->next;
+    }
+
+    return aux->key;
 }
 
 void LinkedList::print() {
@@ -73,6 +85,7 @@ void LinkedList::print() {
         no = no->next;
     }
     
+    cout<< endl;
 }
 
 int LinkedList::size() {
@@ -89,7 +102,20 @@ int LinkedList::size() {
 }
 
 Node* LinkedList::find(int key) {
-    return nullptr;
+    Node* aux = this->head;
+    
+    for (int i = 0; i < this->size(); i++)
+    {
+        if (aux->key == key)
+        {
+            break;
+        } else{
+            aux = aux->next;
+        }
+    }
+    cout<< "Find: " << aux->key;
+    cout<< endl;
+    return aux;
 }
 
 void LinkedList::insert_after(int key, Node* pos) {
@@ -103,25 +129,31 @@ bool LinkedList::remove_after(Node* pos) {
 
 bool LinkedList::insert(int key, int pos) {
     
-    if (pos <= this->size())
-    {
-        Node* aux = this->head;
-        for (int i = 0; i <= pos; i++)
-        {
-            aux = aux->next;
-        }
-        Node* novo = new Node{key, aux->next};
-        aux->next = novo;
-        return true;
+    if (pos == 0){
+        return this->push_front(key);
     }
-    return false;
-}
 
-bool LinkedList::remove(int pos) {
+    Node* aux = this->head;
+    for (int i = 0; i < pos-1 && aux; i++)
+    {
+        if (!aux)
+        {
+            return false;
+        }
+        
+        aux = aux->next;
+    }
+    Node* novo = new Node{key, aux->next};
+    aux->next = novo;
+
     return true;
 }
 
-bool LinkedList::remove(int key) {
+Node* LinkedList::removePos(int pos) {
+    return nullptr;
+}
+
+bool LinkedList::removeKey(int key) {
     return true;
 }
 

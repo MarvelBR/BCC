@@ -35,8 +35,8 @@ public:
     bool remove_after(Node* pos);
     
     bool insert(int key, int pos);
-    bool remove(int pos);
-    bool remove(int key);
+    Node* removePos(int pos);
+    bool removeKey(int key);
     
     bool insert_sorted(int key);
 
