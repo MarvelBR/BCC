@@ -1,19 +1,27 @@
-#include "linked_list.h"
+#include "circular_list.h"
 #include <algorithm>
 #include <iostream>
 #include <stdio.h>
 
 using namespace std;
 
-LinkedList::LinkedList() {
+//? Lista Circular Simples (dificilmente utilizada)
+
+//*Possui a vantagem de não tratar um ponteiro NULL (excteo se estiver vazia)
+
+//! Anotar vantagens e desvatagens dos outros tipos de listas!!!!
+
+
+CircularList::CircularList() {
     this->head = nullptr;
+    this->tail = this->head;
 }
 
-LinkedList::~LinkedList() {
+CircularList::~CircularList() {
 
 }  
 
-bool LinkedList::push_front(int key){
+bool CircularList::push_front(int key){
     Node* no = new Node{key, nullptr};
 
     if (!no)
@@ -26,11 +34,11 @@ bool LinkedList::push_front(int key){
     return true;
 }
 
-bool LinkedList::push_back(int key) {
+bool CircularList::push_back(int key) {
     return true;
 }
 
-bool LinkedList::pop_front() {
+bool CircularList::pop_front() {
     if (this->head)
     {
         Node* aux = this->head;
@@ -43,7 +51,7 @@ bool LinkedList::pop_front() {
    
 }
 
-bool LinkedList::equals(LinkedList* other) {
+bool CircularList::equals(CircularList* other) {
     Node* a1 = this->head;
     Node* a2 = other->head;
 
@@ -60,7 +68,7 @@ bool LinkedList::equals(LinkedList* other) {
     return true;
 }
 
-int LinkedList::get(int pos) {
+int CircularList::get(int pos) {
     Node* aux = this->head;
 
     if (pos >= this->size())
@@ -76,7 +84,7 @@ int LinkedList::get(int pos) {
     return aux->key;
 }
 
-void LinkedList::print() {
+void CircularList::print() {
     Node* no = this->head;
 
     while (no)
@@ -88,7 +96,7 @@ void LinkedList::print() {
     cout<< endl;
 }
 
-int LinkedList::size() {
+int CircularList::size() {
     int n = 0;
     Node* aux = this->head;
 
@@ -101,7 +109,7 @@ int LinkedList::size() {
     return n;
 }
 
-Node* LinkedList::find(int key) {
+Node* CircularList::find(int key) {
     Node* aux = this->head;
     
     for (int i = 0; i < this->size(); i++)
@@ -118,16 +126,16 @@ Node* LinkedList::find(int key) {
     return aux;
 }
 
-void LinkedList::insert_after(int key, Node* pos) {
+void CircularList::insert_after(int key, Node* pos) {
     Node* novo = new Node{key, pos->next};
     pos->next = novo;
 }
 
-bool LinkedList::remove_after(Node* pos) {
+bool CircularList::remove_after(Node* pos) {
     return true;
 }
 
-bool LinkedList::insert(int key, int pos) {
+bool CircularList::insert(int key, int pos) {
     
     if (pos == 0){
         return this->push_front(key);
@@ -149,18 +157,18 @@ bool LinkedList::insert(int key, int pos) {
     return true;
 }
 
-Node* LinkedList::removePos(int pos) {
+Node* CircularList::removePos(int pos) {
     return nullptr;
 }
 
-bool LinkedList::removeKey(int key) {
+bool CircularList::removeKey(int key) {
     return true;
 }
 
-bool LinkedList::pop_back() {
+bool CircularList::pop_back() {
     return true;
 }
 
-bool LinkedList::empty() {
+bool CircularList::empty() {
     return true;
 }

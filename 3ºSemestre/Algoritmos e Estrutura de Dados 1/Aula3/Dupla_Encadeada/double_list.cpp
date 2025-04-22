@@ -1,19 +1,32 @@
-#include "linked_list.h"
+#include "double_list.h"
 #include <algorithm>
 #include <iostream>
 #include <stdio.h>
 
 using namespace std;
 
-LinkedList::LinkedList() {
+//? Lista Duplamente Encadeada
+
+//* Cada nó possui dois ponteiros, prev e next, que apontam, respectivamente ao nó anterior e ao próximo, na lista
+
+//* Facilita ainda mais inserções/remoções em qualquer parte da lista
+
+//! Disponível em C++ pela STL como std::List
+
+//? Ponteiro para Cauda -- Sentinela
+
+//! Anotar vantagens e desvatagens dos outros tipos de listas!!!!
+
+LinkedList2::LinkedList2() {
     this->head = nullptr;
+    this->tail = nullptr;
 }
 
-LinkedList::~LinkedList() {
+LinkedList2::~LinkedList2() {
 
 }  
 
-bool LinkedList::push_front(int key){
+bool LinkedList2::push_front(int key){
     Node* no = new Node{key, nullptr};
 
     if (!no)
@@ -21,20 +34,33 @@ bool LinkedList::push_front(int key){
         return false;
     }
 
-    no->next = this->head; //o next do nó ta apontando para quem o head está apontando
-    this->head = no; // head aponta para o primeiro do nó
+    no->next = this->head; 
+    this->head = no; 
+    no->next->prev = no;
+
+    if (no->next)
+    {
+        no->next->prev = no;
+    } else{
+        this->tail = no;
+    }
+
     return true;
 }
 
-bool LinkedList::push_back(int key) {
+bool LinkedList2::push_back(int key) {
     return true;
 }
 
-bool LinkedList::pop_front() {
+bool LinkedList2::pop_front() {
     if (this->head)
     {
         Node* aux = this->head;
         this->head = aux->next;
+        if (!this->head)
+        {
+            this->tail = nullptr;
+        }
         delete aux;
         return true;
     } else{
@@ -43,7 +69,7 @@ bool LinkedList::pop_front() {
    
 }
 
-bool LinkedList::equals(LinkedList* other) {
+bool LinkedList2::equals(LinkedList2* other) {
     Node* a1 = this->head;
     Node* a2 = other->head;
 
@@ -60,7 +86,7 @@ bool LinkedList::equals(LinkedList* other) {
     return true;
 }
 
-int LinkedList::get(int pos) {
+int LinkedList2::get(int pos) {
     Node* aux = this->head;
 
     if (pos >= this->size())
@@ -76,7 +102,7 @@ int LinkedList::get(int pos) {
     return aux->key;
 }
 
-void LinkedList::print() {
+void LinkedList2::print() {
     Node* no = this->head;
 
     while (no)
@@ -88,7 +114,7 @@ void LinkedList::print() {
     cout<< endl;
 }
 
-int LinkedList::size() {
+int LinkedList2::size() {
     int n = 0;
     Node* aux = this->head;
 
@@ -101,7 +127,7 @@ int LinkedList::size() {
     return n;
 }
 
-Node* LinkedList::find(int key) {
+Node* LinkedList2::find(int key) {
     Node* aux = this->head;
     
     for (int i = 0; i < this->size(); i++)
@@ -118,16 +144,16 @@ Node* LinkedList::find(int key) {
     return aux;
 }
 
-void LinkedList::insert_after(int key, Node* pos) {
+void LinkedList2::insert_after(int key, Node* pos) {
     Node* novo = new Node{key, pos->next};
     pos->next = novo;
 }
 
-bool LinkedList::remove_after(Node* pos) {
+bool LinkedList2::remove_after(Node* pos) {
     return true;
 }
 
-bool LinkedList::insert(int key, int pos) {
+bool LinkedList2::insert(int key, int pos) {
     
     if (pos == 0){
         return this->push_front(key);
@@ -149,18 +175,18 @@ bool LinkedList::insert(int key, int pos) {
     return true;
 }
 
-Node* LinkedList::removePos(int pos) {
+Node* LinkedList2::removePos(int pos) {
     return nullptr;
 }
 
-bool LinkedList::removeKey(int key) {
+bool LinkedList2::removeKey(int key) {
     return true;
 }
 
-bool LinkedList::pop_back() {
+bool LinkedList2::pop_back() {
     return true;
 }
 
-bool LinkedList::empty() {
+bool LinkedList2::empty() {
     return true;
 }

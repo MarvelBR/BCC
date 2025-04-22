@@ -1,19 +1,26 @@
-#include "linked_list.h"
+#include "double_circular.h"
 #include <algorithm>
 #include <iostream>
 #include <stdio.h>
 
 using namespace std;
 
-LinkedList::LinkedList() {
+//? Lista Circular Duplamente Encadeada 
+
+//*Inserir no fim, basta inserir no anterior do primeiro, eliminando a necessidade de um ponteiro para cauda.
+
+//! Anotar vantagens e desvatagens dos outros tipos de listas!!!!
+
+CircularList2::CircularList2() {
     this->head = nullptr;
+    this->tail = this->head;
 }
 
-LinkedList::~LinkedList() {
+CircularList2::~CircularList2() {
 
 }  
 
-bool LinkedList::push_front(int key){
+bool CircularList2::push_front(int key){
     Node* no = new Node{key, nullptr};
 
     if (!no)
@@ -21,16 +28,16 @@ bool LinkedList::push_front(int key){
         return false;
     }
 
-    no->next = this->head; //o next do nó ta apontando para quem o head está apontando
-    this->head = no; // head aponta para o primeiro do nó
+    no->next = this->head;
+    this->head = no;
     return true;
 }
 
-bool LinkedList::push_back(int key) {
+bool CircularList2::push_back(int key) {
     return true;
 }
 
-bool LinkedList::pop_front() {
+bool CircularList2::pop_front() {
     if (this->head)
     {
         Node* aux = this->head;
@@ -43,7 +50,7 @@ bool LinkedList::pop_front() {
    
 }
 
-bool LinkedList::equals(LinkedList* other) {
+bool CircularList2::equals(CircularList2* other) {
     Node* a1 = this->head;
     Node* a2 = other->head;
 
@@ -60,7 +67,7 @@ bool LinkedList::equals(LinkedList* other) {
     return true;
 }
 
-int LinkedList::get(int pos) {
+int CircularList2::get(int pos) {
     Node* aux = this->head;
 
     if (pos >= this->size())
@@ -76,7 +83,7 @@ int LinkedList::get(int pos) {
     return aux->key;
 }
 
-void LinkedList::print() {
+void CircularList2::print() {
     Node* no = this->head;
 
     while (no)
@@ -88,7 +95,7 @@ void LinkedList::print() {
     cout<< endl;
 }
 
-int LinkedList::size() {
+int CircularList2::size() {
     int n = 0;
     Node* aux = this->head;
 
@@ -101,7 +108,7 @@ int LinkedList::size() {
     return n;
 }
 
-Node* LinkedList::find(int key) {
+Node* CircularList2::find(int key) {
     Node* aux = this->head;
     
     for (int i = 0; i < this->size(); i++)
@@ -118,16 +125,16 @@ Node* LinkedList::find(int key) {
     return aux;
 }
 
-void LinkedList::insert_after(int key, Node* pos) {
+void CircularList2::insert_after(int key, Node* pos) {
     Node* novo = new Node{key, pos->next};
     pos->next = novo;
 }
 
-bool LinkedList::remove_after(Node* pos) {
+bool CircularList2::remove_after(Node* pos) {
     return true;
 }
 
-bool LinkedList::insert(int key, int pos) {
+bool CircularList2::insert(int key, int pos) {
     
     if (pos == 0){
         return this->push_front(key);
@@ -149,18 +156,18 @@ bool LinkedList::insert(int key, int pos) {
     return true;
 }
 
-Node* LinkedList::removePos(int pos) {
+Node* CircularList2::removePos(int pos) {
     return nullptr;
 }
 
-bool LinkedList::removeKey(int key) {
+bool CircularList2::removeKey(int key) {
     return true;
 }
 
-bool LinkedList::pop_back() {
+bool CircularList2::pop_back() {
     return true;
 }
 
-bool LinkedList::empty() {
+bool CircularList2::empty() {
     return true;
 }

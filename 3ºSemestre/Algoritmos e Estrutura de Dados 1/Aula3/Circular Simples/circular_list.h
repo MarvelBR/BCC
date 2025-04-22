@@ -1,7 +1,5 @@
 #pragma once
 
-// Definicao do TAD Lista Encadeada
-
 class Node {
 public:
     int key;
@@ -9,13 +7,14 @@ public:
 };
 
 
-class LinkedList {
+class CircularList {
 private:
     Node* head;
+    Node* tail;
 
 public:
-    LinkedList(); //método construtor
-    ~LinkedList(); // ~ - método destrutor 
+    CircularList(); //método construtor
+    ~CircularList(); // ~ - método destrutor 
     
     bool push_front(int key);
     bool pop_front();
@@ -40,5 +39,5 @@ public:
     
     bool insert_sorted(int key);
 
-    bool equals(LinkedList* other);
+    bool equals(CircularList* other);
 };
