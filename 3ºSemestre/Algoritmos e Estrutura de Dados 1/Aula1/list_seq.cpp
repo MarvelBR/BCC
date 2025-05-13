@@ -263,15 +263,6 @@ void ListSeq::list_reverse(){
     {
         data[size-i-1] = ls2.data[i];
     }
-
-    //!Método do Robozão
-    //for (int i = 0; i < size / 2; i++) // Itera até a metade da lista
-    //{
-        // Troca os elementos nas posições opostas
-        //int temp = data[i];
-        //data[i] = data[size - i - 1];
-        //data[size - i - 1] = temp;
-    //}
 }
 
 int ListSeq::list_equal(ListSeq* outra){

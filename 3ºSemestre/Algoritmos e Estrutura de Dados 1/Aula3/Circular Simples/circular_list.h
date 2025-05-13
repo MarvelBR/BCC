@@ -30,9 +30,6 @@ public:
 
     Node* find(int key);
     
-    void insert_after(int key, Node* pos);
-    bool remove_after(Node* pos);
-    
     bool insert(int key, int pos);
     Node* removePos(int pos);
     bool removeKey(int key);

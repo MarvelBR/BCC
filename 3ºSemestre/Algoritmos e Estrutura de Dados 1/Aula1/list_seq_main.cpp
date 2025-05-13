@@ -98,6 +98,46 @@ int main()
     cout << "Apos adicionar elementos em lote: ";
     ls.print();
 
+    // Testando list_equal
+    ListSeq ls2(5);
+    ls2.add(10);
+    ls2.add(20);
+    ls2.add(30);
+    ls2.add(40);
+    ls2.add(50);
+    int equal = ls.list_equal(&ls2);
+    if (equal == 1)
+    {
+        cout << "As listas sao iguais!" << endl;
+    }
+    else if (equal == 0)
+    {
+        cout << "As listas sao diferentes!" << endl;
+    }
+    else
+    {
+        cout << "Ambas as listas estao vazias!" << endl;
+    }
+
+    // Testando list_from_vector
+    int vet2[] = { 90, 100, 110 };
+    ListSeq* ls3 = ls.list_from_vector(3, vet2);
+    cout << "Lista criada a partir do vetor: ";
+    ls3->print();
+
+    // Testando list_copy
+    ListSeq* ls4 = ls.list_copy();
+    cout << "Copia da lista: ";
+    ls4->print();
+
+    // Testando list_concat
+    ListSeq ls5(5);
+    ls5.add(200);
+    ls5.add(300);
+    ls5.add(400);
+    int concatCount = ls.list_concat(&ls5);
+    cout << "Elementos concatenados: " << concatCount << endl;
+
     // Testando list_clear
     ls.list_clear();
     cout << "Apos limpar a lista: ";
