@@ -29,6 +29,7 @@ class Player {
 Nesse exemplo a classe Player tanto calcula a lógica do dano quando imprime ele!
 
 **Problema Resolvido:**  
+
 🔗 [SRP/player.java](./SRP/player.java)
 
 Evita que a classe Player fique com múltiplas responsabilidades.
