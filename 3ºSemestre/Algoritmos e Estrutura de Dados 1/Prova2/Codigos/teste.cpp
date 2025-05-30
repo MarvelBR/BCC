@@ -38,9 +38,6 @@ void gerar_e_testar(int tamanho, const std::string& nome_arquivo) {
         std::cerr << "Erro ao abrir " << caminho << "\n";
         return;
     }
-    //std::ofstream é uma classe de saída de arquivos (output file stream), usada para escrever dados em arquivos.
-    //Aqui está sendo criado um objeto chamado arquivo para abrir um arquivo binário no caminho ../Dados/ com o nome contido em nome_arquivo.
-    //std::ios::binary indica que o arquivo será aberto em modo binário (sem conversão de formatação como \n → \r\n em Windows).
 
     if (!arquivo) {
         std::cerr << "Erro ao criar arquivo dados/" << nome_arquivo << "\n";
