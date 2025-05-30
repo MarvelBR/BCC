@@ -7,7 +7,9 @@
 #include <string>
 #include <filesystem>
 
-// BubbleSort padrão (O(n²))
+using namespace std;
+
+/* BubbleSort padrão (O(n²))
 void bubbleSort(std::vector<int>& v) {
     for (size_t i = 0; i < v.size(); ++i) {
         for (size_t j = 0; j + 1 < v.size() - i; ++j) {
@@ -17,39 +19,69 @@ void bubbleSort(std::vector<int>& v) {
         }
     }
 }
-
-// Função para gerar vetor aleatório, salvar em arquivo binário e medir tempo de ordenação
+*/
 void gerar_e_testar(int tamanho, const std::string& nome_arquivo) {
     std::vector<int> dados(tamanho);
 
-    srand(time(0)); // Semente
+    srand(time(0)); // sequência diferente a cada execução
+
 
     for (int& x : dados){
-        x = rand() % 1000000;
+        x = rand() % 1000000; // Gera números aleatórios entre 0 e 999999
     }
 
-    // Escreve os dados originais (desordenados) no arquivo
-    std::ofstream arquivo("../Dados/" + nome_arquivo, std::ios::binary);
+    std::ofstream arquivo;
+    std::string caminho = "../Dados/" + nome_arquivo;
+
+    arquivo.open(caminho, std::ios::binary);
+    if (!arquivo.is_open()) {
+        std::cerr << "Erro ao abrir " << caminho << "\n";
+        return;
+    }
+    //std::ofstream é uma classe de saída de arquivos (output file stream), usada para escrever dados em arquivos.
+    //Aqui está sendo criado um objeto chamado arquivo para abrir um arquivo binário no caminho ../Dados/ com o nome contido em nome_arquivo.
+    //std::ios::binary indica que o arquivo será aberto em modo binário (sem conversão de formatação como \n → \r\n em Windows).
+
     if (!arquivo) {
         std::cerr << "Erro ao criar arquivo dados/" << nome_arquivo << "\n";
         return;
     }
 
-    arquivo.write(reinterpret_cast<char*>(dados.data()), sizeof(int) * dados.size());
+    arquivo.write(reinterpret_cast<char*>(dados.data()), sizeof(int) * dados.size()); 
+
+    /*
+    Essa linha grava os dados no arquivo binário. Vamos por partes:
+    dados:
+    Provavelmente é um std::vector<int> contendo os dados que você quer salvar.
+
+    dados.data():
+    Retorna um ponteiro para o primeiro elemento do vetor (tipo int*).
+
+    reinterpret_cast<char*>(...):
+    Converte o ponteiro int* para char*.
+    Isso é necessário porque std::ofstream::write exige um ponteiro para char (bytes crus).
+    O reinterpret_cast permite conversões de ponteiros entre tipos não relacionados — é uma forma "perigosa", mas válida nesse contexto.
+
+    sizeof(int) * dados.size():
+    Calcula o número total de bytes a serem escritos (número de elementos × tamanho de cada int).
+    */
+
     arquivo.close();
 
-    std::cout << "Arquivo \"dados/" << nome_arquivo << "\" criado com " << tamanho << " elementos.\n";
+    std::cout << "Arquivo \"Dados/" << nome_arquivo << "\" criado com " << tamanho << " elementos.\n";
 
-    // Faz uma cópia do vetor para não alterar os dados salvos
+    /* Não vai ficar aqui!
+     Faz uma cópia do vetor para não alterar os dados salvos
     std::vector<int> copia = dados;
 
-    // Mede o tempo de ordenação com BubbleSort
+    Mede o tempo de ordenação com BubbleSort
     auto inicio = std::chrono::high_resolution_clock::now();
     bubbleSort(copia);
     auto fim = std::chrono::high_resolution_clock::now();
 
     std::chrono::duration<double> duracao = fim - inicio;
     std::cout << "Tempo de ordenação com BubbleSort: " << duracao.count() << " segundos.\n\n";
+    */
 }
 
 int main() {
