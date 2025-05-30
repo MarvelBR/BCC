@@ -30,8 +30,8 @@ void gerar_e_testar(int tamanho, const std::string& nome_arquivo) {
         x = rand() % 1000000; // Gera números aleatórios entre 0 e 999999
     }
 
-    std::ofstream arquivo;
-    std::string caminho = "../Dados/" + nome_arquivo;
+    ofstream arquivo;
+    string caminho = "../Dados/" + nome_arquivo;
 
     arquivo.open(caminho, std::ios::binary);
     if (!arquivo.is_open()) {
