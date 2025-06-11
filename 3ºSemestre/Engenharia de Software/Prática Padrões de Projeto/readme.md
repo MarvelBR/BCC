@@ -12,7 +12,7 @@ Você deve:
 1. **Analisar o Esqueleto Fornecido**: Entender a estrutura inicial e os papéis de cada interface/classe.  
    - Anotar em cada classe o que é contexto, cliente, estratégia concreta, etc
 
-2. **Definir/Completar Interfaces e Classes Necessárias para Execução** : F**a;lta código em vários pontos.**
+2. **Definir/Completar Interfaces e Classes Necessárias para Execução** : Falta código em vários pontos.**
 
 3. **Adicionar um novo tipo de mensagem**, como `PromotionalMessage`.
 
