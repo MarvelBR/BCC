@@ -1,24 +1,9 @@
 
+// Interface
+// Define o comportamento comum para envio de mensagens
 interface NotificationStrategy {
 
     void send(Message message, String recipient);
-}
-
-class EmailNotificationStrategy implements NotificationStrategy {
-
-    @Override
-    public void send(Message message, String recipient) {
-        System.out.println("Enviando EMAIL para " + recipient + " -- " + message.format());
-    }
-
-}
-
-class SMSNotificationStrategy implements NotificationStrategy {
-
-    @Override
-    public void send(Message message, String recipient) {
-        System.out.println("Enviando SMS para " + recipient + " -- " + message.format());
-    }
 }
 
 /* 
@@ -37,6 +22,8 @@ class MessageFactory {
 }
 */
 
+// Classe Abstrata
+// Representa uma mensagem genérica. Superclasse para diferentes tipos de mensagens.
 abstract class Message {
 
     protected String content;
@@ -52,6 +39,7 @@ abstract class Message {
     }
 }
 
+// Classe Concreta
 class SimpleMessage extends Message {
 
     public SimpleMessage(String content) {
@@ -65,6 +53,7 @@ class SimpleMessage extends Message {
 
 }
 
+// Classe Concreta
 class UrgentMessage extends Message {
 
     public UrgentMessage(String content) {
@@ -78,6 +67,7 @@ class UrgentMessage extends Message {
 
 }
 
+// Classe Concreta
 class PromotionalMessage extends Message {
 
     public PromotionalMessage(String content) {
@@ -91,6 +81,8 @@ class PromotionalMessage extends Message {
 
 }
 
+// Classe Abstrata
+// Define um criador de mensagens. Permite a criação de diferentes tipos de mensagens.
 abstract class MessageCreator {
 
     public Message getMessage(String content) {
@@ -100,7 +92,7 @@ abstract class MessageCreator {
     protected abstract Message createMessage(String content);
 }
 
-
+// Classe Concreta
 class SimpleMessageCreator extends MessageCreator {
 
     @Override
@@ -109,6 +101,7 @@ class SimpleMessageCreator extends MessageCreator {
     }
 }
 
+// Classe Concreta
 class UrgentMessageCreator extends MessageCreator {
 
     @Override
@@ -117,6 +110,7 @@ class UrgentMessageCreator extends MessageCreator {
     }
 }
 
+// Classe Concreta
 class PromotionalMessageCreator extends MessageCreator {
 
     @Override
@@ -125,6 +119,29 @@ class PromotionalMessageCreator extends MessageCreator {
     }
 }
 
+// Classe Concreta
+// Implementa envio por Email
+class EmailNotificationStrategy implements NotificationStrategy {
+
+    @Override
+    public void send(Message message, String recipient) {
+        System.out.println("Enviando EMAIL para " + recipient + " -- " + message.format());
+    }
+
+}
+
+// Classe Concreta
+// Implementa envio por SMS
+class SMSNotificationStrategy implements NotificationStrategy {
+
+    @Override
+    public void send(Message message, String recipient) {
+        System.out.println("Enviando SMS para " + recipient + " -- " + message.format());
+    }
+}
+
+// Classe Concreta
+// Serviço de notificação que utiliza uma estratégia de envio
 class NotificationService {
 
     private NotificationStrategy strategy;
