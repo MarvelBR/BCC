@@ -1,48 +1,40 @@
 #include <chrono>
 #include <iostream>
-#include <vector>
-#include <fstream>
 
 using namespace std;
 
-class Timer
-{
-public:
-    Timer()
-    {
-        start_time = std::chrono::high_resolution_clock::now();
-    }
-
-    ~Timer()
-    {
-        stop();
-    }
-
-    void stop()
-    {
-        auto end_time = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> duration = end_time - start_time;
-        std::cout << "Duração: " << duration.count() << " segundos\n";
-    }
-
-private:
-    std::chrono::time_point<std::chrono::high_resolution_clock> start_time;
-};
-
 class Utilities
 {
+private:
+    chrono::high_resolution_clock::time_point start;
+    chrono::high_resolution_clock::time_point end;
+
 public:
     Utilities() {}
 
-    void count_duration()
-    {
-        Timer timer;
-    }
-
-    void count_iterations(int *iterations)
+    void count_iterations(unsigned long long int *iterations)
     {
         (*iterations)++;
     }
+
+    void start_timer()
+    {
+        this->start = chrono::high_resolution_clock::now();
+    }
+
+    void end_timer()
+    {
+        this->end = chrono::high_resolution_clock::now();
+
+        this->end = chrono::high_resolution_clock::now();
+        chrono::duration<double> duration = this->end - this->start;
+        cout << "Tempo de duracao: " << duration.count() << " segundos" << endl;
+    }
+
+    void print_result(unsigned long long int comparacoes, unsigned long long int trocas)
+    {
+        cout << "Comparações: " << comparacoes << " | Trocas: " << trocas << endl;
+    };
 
     void swap(int *elem_A, int *elem_B)
     {
@@ -54,7 +46,7 @@ public:
     vector<int> read_binary_file(string path, int size)
     {
         vector<int> dados(size);
-        ifstream file(path, std::ios::binary | std::ios::in);
+        ifstream file(path, ios::binary | ios::in);
 
         if (!file.is_open())
         {

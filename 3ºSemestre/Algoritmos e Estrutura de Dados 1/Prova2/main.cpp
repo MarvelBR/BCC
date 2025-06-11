@@ -5,107 +5,105 @@
 #include "Codigos/gerador_dados.cpp"
 #include "Codigos/busca.cpp"
 
-void gerar_dados()
-{
-    Gerador pequeno("Dados/pequeno", 13000);
-    Gerador medio("Dados/medio", 70000);
-    Gerador grande("Dados/grande", 165000);
+using namespace std;
 
-    pequeno.create_unordered_file();
-    medio.create_unordered_file();
-    grande.create_unordered_file();
-
-    pequeno.create_ordered_file();
-    medio.create_ordered_file();
-    grande.create_ordered_file();
-}
-
-void buscar(std::vector<int> &dados, int chave)
+void buscar(vector<int> &dados, int chave)
 {
     Busca busca(dados);
 
+    cout << "Busca Linear: " << endl;
     int idx_linear = busca.linear_search(chave);
-    if (idx_linear != -1){
-        std::cout << "Busca Linear: valor " << chave << " encontrado no índice " << idx_linear << std::endl;
-    } else {
-        std::cout << "Busca Linear: valor " << chave << " não encontrado." << std::endl;
+    if (idx_linear != -1)
+    {
+        cout << "Busca Linear: valor " << chave << " encontrado no índice " << idx_linear << endl;
     }
-        
+    else
+    {
+        std::cout << "Busca Linear: valor " << chave << " não encontrado." << endl;
+    }
+
     cout << "\n";
 
+    cout << "Busca Binária: " << endl;
     int idx_binaria = busca.binary_search(chave);
-    if (idx_binaria != -1){
-        std::cout << "Busca Binária: valor " << chave << " encontrado no índice " << idx_binaria << std::endl;
-    } else {
-        std::cout << "Busca Binária: valor " << chave << " não encontrado." << std::endl;
+    if (idx_binaria != -1)
+    {
+        cout << "Busca Binária: valor " << chave << " encontrado no índice " << idx_binaria << endl;
+    }
+    else
+    {
+        cout << "Busca Binária: valor " << chave << " não encontrado." << endl;
     }
 }
 
-void ordenar(std::vector<int> &dados)
+void ordenar(vector<int> &dados)
 {
     Ordenacao ordenacao(dados);
 
-    std::cout << "Selection Sort:\n";
+    cout << "Selection Sort:\n";
     ordenacao.selection_sort();
 
-    std::cout << "\n";
+    cout << "\n";
 
-    ordenacao.reset();
-    std::cout << "Bubble Sort:\n";
+    cout << "Selection Sort Otimizado:\n";
+    ordenacao.optimized_selection_sort();
+
+    cout << "\n";
+
+    cout << "Bubble Sort:\n";
     ordenacao.bubble_sort();
 
-    std::cout << "\n";
+    cout << "\n";
 
-    ordenacao.reset();
-    std::cout << "Bubble Sort Otimizado:\n";
+    cout << "Bubble Sort Otimizado:\n";
     ordenacao.optimized_bubble_sort();
 
-    std::cout << "\n";
+    cout << "\n";
 
-    ordenacao.reset();
-    std::cout << "Insertion Sort:\n";
+    cout << "Insertion Sort:\n";
     ordenacao.insertion_sort();
 }
 
 int main()
 {
-    gerar_dados();
-
+    Gerador gerador("./Dados/");
     Utilities util;
+    gerador.gerar_dados();
 
-    std::cout << "\nARQUIVO PEQUENO DESORDENADO\n";
-    std::vector<int> dados = util.read_binary_file("Dados/pequeno_13000_desordenado.bin", 13000);
-    //ordenar(dados);
+    cout << "\nARQUIVO PEQUENO DESORDENADO\n";
+    vector<int> dados = util.read_binary_file("dados/pequeno_13000_desordenado.bin", 13000);
+    ordenar(dados);
 
-    std::cout << "\nARQUIVO MEDIO DESORDENADO\n";
-    std::vector<int> dados2 = util.read_binary_file("Dados/medio_70000_desordenado.bin", 70000);
-    //ordenar(dados2);
+    cout << "\nARQUIVO MEDIO DESORDENADO\n";
+    vector<int> dados2 = util.read_binary_file("dados/medio_70000_desordenado.bin", 70000);
+    ordenar(dados2);
 
-    std::cout << "\nARQUIVO GRANDE DESORDENADO\n";
-    std::vector<int> dados3 = util.read_binary_file("Dados/grande_165000_desordenado.bin", 165000);
-    //ordenar(dados3);
+    cout << "\nARQUIVO GRANDE DESORDENADO\n";
+    vector<int> dados3 = util.read_binary_file("dados/grande_165000_desordenado.bin", 165000);
+    ordenar(dados3);
 
-    std::cout << "\nARQUIVO PEQUENO ORDENADO\n";
-    std::vector<int> dados4 = util.read_binary_file("Dados/pequeno_13000_ordenado.bin", 13000);
-    //ordenar(dados4);
+    cout << "\nARQUIVO PEQUENO ORDENADO\n";
+    vector<int> dados4 = util.read_binary_file("dados/pequeno_13000_ordenado.bin", 13000);
+    ordenar(dados4);
 
-    std::cout << "\nARQUIVO MEDIO ORDENADO\n";
-    std::vector<int> dados5 = util.read_binary_file("Dados/medio_70000_ordenado.bin", 70000);
-    //ordenar(dados5);
+    cout << "\nARQUIVO MEDIO ORDENADO\n";
+    vector<int> dados5 = util.read_binary_file("dados/medio_70000_ordenado.bin", 70000);
+    ordenar(dados5);
 
-    std::cout << "\nARQUIVO GRANDE ORDENADO\n";
-    std::vector<int> dados6 = util.read_binary_file("Dados/grande_165000_ordenado.bin", 165000);
-    //ordenar(dados6);
+    cout << "\nARQUIVO GRANDE ORDENADO\n";
+    vector<int> dados6 = util.read_binary_file("dados/grande_165000_ordenado.bin", 165000);
+    ordenar(dados6);
 
-    std::cout << "\nBUSCAS NO ARQUIVO PEQUENO ORDENADO\n";
-    int chave = 1234; // valor para buscar
+    cout << "\nBUSCAS NO ARQUIVO PEQUENO ORDENADO\n";
+    int chave = 12999;
     buscar(dados4, chave);
 
-    std::cout << "\nBUSCAS NO ARQUIVO MEDIO ORDENADO\n";
-    buscar(dados5, chave);
+    cout << "\nBUSCAS NO ARQUIVO MEDIO ORDENADO\n";
+    int chave2 = 69999;
+    buscar(dados5, chave2);
 
-    std::cout << "\nBUSCAS NO ARQUIVO GRANDE ORDENADO\n";
-    buscar(dados6, chave);
-
+    cout << "\nBUSCAS NO ARQUIVO GRANDE ORDENADO\n";
+    int chave3 = 164999;
+    buscar(dados6, chave3);
     return 0;
 }

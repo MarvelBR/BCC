@@ -1,9 +1,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <list>
-#include <fstream>
-#include <random>
 #include <chrono>
 
 using namespace std;
@@ -12,58 +9,58 @@ class Busca
 {
 private:
     vector<int> dados;
-    vector<int> copia;
     int tamanho;
+    Utilities util;
 
 public:
     Busca(vector<int> &_arr)
     {
         this->dados = _arr;
-        this->copia = this->dados;
-        this->tamanho = this->copia.size();
+        this->tamanho = this->dados.size();
     }
 
     int linear_search(int key)
     {
+        this->util.start_timer();
         unsigned long long int comparacoes = 0;
-        auto inicio = std::chrono::high_resolution_clock::now();
+        vector<int> copia = this->dados;
+
         for (int i = 0; i < this->tamanho; i++)
         {
-            comparacoes++;
-            if (this->copia[i] == key)
+            this->util.count_iterations(&comparacoes);
+
+            if (copia[i] == key)
             {
-                auto fim = std::chrono::high_resolution_clock::now();
-                chrono::duration<double> duracao = fim - inicio;
-                cout << "Tempo de busca (Linear Search):" << duracao.count() << " segundos.\n";
+                this->util.end_timer();
+
                 cout << "Comparações: " << comparacoes << endl;
                 return i; // Retorna o índice do elemento encontrado
             }
         }
-        auto fim = std::chrono::high_resolution_clock::now();
-        chrono::duration<double> duracao = fim - inicio;
-        cout << "Tempo de busca (Linear Search):" << duracao.count() << " segundos.\n";
+        this->util.end_timer();
         cout << "Comparações: " << comparacoes << endl;
         return -1; // Retorna -1 se o elemento não for encontrado
     }
 
     int binary_search(int key)
     {
+        this->util.start_timer();
         unsigned long long int comparacoes = 0;
-        auto inicio = std::chrono::high_resolution_clock::now();
+        vector<int> copia = this->dados;
+
         int left = 0, right = this->tamanho - 1;
         while (left <= right)
         {
-            comparacoes++;
+            this->util.count_iterations(&comparacoes);
             int mid = left + (right - left) / 2;
-            if (this->copia[mid] == key)
+
+            if (copia[mid] == key)
             {
-                auto fim = std::chrono::high_resolution_clock::now();
-                chrono::duration<double> duracao = fim - inicio;
-                cout << "Tempo de busca (Binary Search):" << duracao.count() << " segundos.\n";
+                this->util.end_timer();
                 cout << "Comparações: " << comparacoes << endl;
                 return mid; // Retorna o índice do elemento encontrado
             }
-            else if (this->copia[mid] < key)
+            else if (copia[mid] < key)
             {
                 left = mid + 1;
             }
@@ -72,10 +69,38 @@ public:
                 right = mid - 1;
             }
         }
-        auto fim = std::chrono::high_resolution_clock::now();
-        chrono::duration<double> duracao = fim - inicio;
-        cout << "Tempo de busca (Binary Search):" << duracao.count() << " segundos.\n";
+
+        this->util.end_timer();
         cout << "Comparações: " << comparacoes << endl;
         return -1; // Retorna -1 se o elemento não for encontrado
+    }
+
+    void buscar(vector<int> &dados, int chave)
+    {
+        Busca busca(dados);
+
+        cout << "Busca Linear" << endl;
+        int idx_linear = busca.linear_search(chave);
+        if (idx_linear != -1)
+        {
+            cout << "Busca Linear: valor " << chave << " encontrado no índice " << idx_linear << endl;
+        }
+        else
+        {
+            cout << "Busca Linear: valor " << chave << " não encontrado." << endl;
+        }
+
+        cout << "\n";
+
+        cout << "Busca Binária" << std::endl;
+        int idx_binaria = busca.binary_search(chave);
+        if (idx_binaria != -1)
+        {
+            cout << "Busca Binária: valor " << chave << " encontrado no índice " << idx_binaria << endl;
+        }
+        else
+        {
+            cout << "Busca Binária: valor " << chave << " não encontrado." << endl;
+        }
     }
 };

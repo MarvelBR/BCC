@@ -12,7 +12,6 @@ class Ordenacao
 {
 private:
     vector<int> dados;
-    vector<int> copia;
     int tamanho = 0;
     Utilities util;
 
@@ -20,14 +19,16 @@ public:
     Ordenacao(vector<int> &_arr)
     {
         this->dados = _arr;
-        this->copia = this->dados;
-        this->tamanho = this->copia.size();
+        this->tamanho = this->dados.size();
     }
 
     void selection_sort()
     {
+        this->util.start_timer();
+
         unsigned long long int comparacoes = 0, trocas = 0;
-        auto inicio = std::chrono::high_resolution_clock::now();
+        vector<int> copia = this->dados;
+
         for (int i = 0; i < this->tamanho; i++)
         {
             int index_minimo = i;
@@ -35,113 +36,133 @@ public:
             for (int j = i + 1; j < this->tamanho; j++)
             {
                 comparacoes++;
-                if (this->copia[j] < this->copia[index_minimo])
+                if (copia[j] < copia[index_minimo])
                     index_minimo = j;
             }
 
             if (index_minimo != i)
             {
-                this->util.swap(&this->copia[index_minimo], &this->copia[i]);
-                trocas++;
+                this->util.swap(&copia[index_minimo], &copia[i]);
+                this->util.count_iterations(&trocas);
             }
         }
-        // this->printArray(copia);
-        auto fim = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> duracao = fim - inicio;
-        std::cout << "Tempo de ordenação (Selection Sort): " << duracao.count() << " segundos.\n";
-        std::cout << "Comparações: " << comparacoes << " | Trocas: " << trocas << std::endl;
+
+        this->util.end_timer();
+
+        this->util.print_result(comparacoes, trocas);
     }
 
     void insertion_sort()
     {
-        // Utilities util;
-        // util.count_duration();
+        this->util.start_timer();
+        vector<int> copia = this->dados;
         unsigned long long int comparacoes = 0, trocas = 0;
-        auto inicio = std::chrono::high_resolution_clock::now();
 
         for (int i = 1; i < this->tamanho; i++) // consideramos que o primeiro elemento está ordenado
         {
-            int temp = this->copia[i];
+            int temp = copia[i];
             int j = i;
-            comparacoes++;
+            this->util.count_iterations(&comparacoes);
 
-            while (j > 0 && temp < this->copia[j - 1])
+            while (j > 0 && temp < copia[j - 1])
             {
-                this->copia[j] = this->copia[j - 1];
-                trocas++;
+                copia[j] = copia[j - 1];
+                this->util.count_iterations(&trocas);
                 --j;
             }
 
             if (j > 0)
             {
-                comparacoes++;
+                this->util.count_iterations(&comparacoes);
             }
 
-            this->copia[j] = temp;
-            trocas++;
+            copia[j] = temp;
+            this->util.count_iterations(&trocas);
         }
+        this->util.end_timer();
 
-        // this->printArray(copia);
-        auto fim = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> duracao = fim - inicio;
-        std::cout << "Tempo de ordenação (Insertion Sort): " << duracao.count() << " segundos.\n";
-        std::cout << "Comparações: " << comparacoes << " | Trocas: " << trocas << std::endl;
+        this->util.print_result(comparacoes, trocas);
     }
 
     void bubble_sort()
     {
-        // Utilities util;
-        // util.count_duration();
-        // int *iteracoes = new int(0);
+        this->util.start_timer();
+        vector<int> copia = this->dados;
+
         unsigned long long int comparacoes = 0, trocas = 0;
-        auto inicio = std::chrono::high_resolution_clock::now();
 
         for (int i = 0; i < this->tamanho; i++)
         {
             for (int j = 0; j < this->tamanho - i - 1; j++)
             {
-                comparacoes++;
-                if (this->copia[j] > this->copia[j + 1])
+                this->util.count_iterations(&comparacoes);
+
+                if (copia[j] > copia[j + 1])
                 {
-                    this->util.swap(&this->copia[j], &this->copia[j + 1]);
-                    trocas++;
+                    this->util.swap(&copia[j], &copia[j + 1]);
                 }
-                // util.count_iterations(iteracoes);
+                this->util.count_iterations(&trocas);
             }
         }
 
-        // cout << "Número de iterações: " << *iteracoes << endl;
-        // this->printArray(copia);
-        auto fim = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> duracao = fim - inicio;
-        std::cout << "Tempo de ordenação (Bubble Sort): " << duracao.count() << " segundos.\n";
-        std::cout << "Comparações: " << comparacoes << " | Trocas: " << trocas << std::endl;
+        this->util.end_timer();
+        this->util.print_result(comparacoes, trocas);
     }
 
-    void printArray(vector<int> vec)
+    void optimized_selection_sort()
     {
-        for (int elem : vec)
+        this->util.start_timer();
+
+        unsigned long long int comparacoes = 0, trocas = 0;
+        vector<int> copia = this->dados;
+
+        for (int i = 0; i < this->tamanho - 1; i++)
         {
-            cout << elem << "";
+            int index_minimo = i;
+            bool houve_troca = false;
+
+            for (int j = i + 1; j < this->tamanho; j++)
+            {
+                comparacoes++;
+                if (copia[j] < copia[index_minimo])
+                {
+                    index_minimo = j;
+                    houve_troca = true; // haverá troca se index_minimo mudar
+                }
+            }
+
+            if (houve_troca)
+            {
+                this->util.swap(&copia[i], &copia[index_minimo]);
+                this->util.count_iterations(&trocas);
+            }
+            else
+            {
+                // Nenhuma troca foi feita, o restante já está ordenado
+                break;
+            }
         }
-        cout << endl;
+
+        this->util.end_timer();
+        this->util.print_result(comparacoes, trocas);
     }
 
     void optimized_bubble_sort()
     {
         unsigned long long int comparacoes = 0, trocas = 0;
-        auto inicio = std::chrono::high_resolution_clock::now();
+        this->util.start_timer();
+        vector<int> copia = this->dados;
 
         for (int i = 0; i < this->tamanho; i++)
         {
             bool trocado = false;
             for (int j = 0; j < this->tamanho - i - 1; j++)
             {
-                comparacoes++;
-                if (this->copia[j] > this->copia[j + 1])
+                this->util.count_iterations(&comparacoes);
+                if (copia[j] > copia[j + 1])
                 {
-                    this->util.swap(&this->copia[j], &this->copia[j + 1]);
-                    trocas++;
+                    this->util.swap(&copia[j], &copia[j + 1]);
+                    this->util.count_iterations(&trocas);
                     trocado = true;
                 }
             }
@@ -151,14 +172,7 @@ public:
             }
         }
 
-        auto fim = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> duracao = fim - inicio;
-        std::cout << "Tempo de ordenação (Bubble Sort Otimizado): " << duracao.count() << " segundos.\n";
-        std::cout << "Comparações: " << comparacoes << " | Trocas: " << trocas << std::endl;
-    }
-
-    void reset()
-    {
-        this->copia = this->dados;
+        this->util.end_timer();
+        this->util.print_result(comparacoes, trocas);
     }
 };

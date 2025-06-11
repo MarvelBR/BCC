@@ -13,7 +13,7 @@ private:
     string path;
 
 public:
-    Gerador(string _path, int file_size)
+    Gerador(string _path, int file_size = 0)
     {
         this->size = file_size;
         this->path = _path;
@@ -37,16 +37,28 @@ public:
         vector<int> dados(this->size);
         fstream file;
 
-        srand(time(0));
-
         for (int &dado : dados)
         {
-            dado = rand() % 1000000;
+            dado = rand() % 9999;
         }
 
         file.open(this->path + "_" + to_string(this->size) + "_desordenado.bin", ios::binary | ios::out);
         file.write(reinterpret_cast<char *>(dados.data()), sizeof(int) * dados.size());
         file.close();
     }
-};
 
+    void gerar_dados()
+    {
+        Gerador pequeno(this->path + "pequeno", 13000);
+        Gerador medio(this->path + "medio", 70000);
+        Gerador grande(this->path + "grande", 165000);
+
+        pequeno.create_unordered_file();
+        medio.create_unordered_file();
+        grande.create_unordered_file();
+
+        pequeno.create_ordered_file();
+        medio.create_ordered_file();
+        grande.create_ordered_file();
+    }
+};
