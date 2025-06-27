@@ -20,7 +20,7 @@ int main() {
 
     // Teste vet_to_stack
     stack<int> stk = lista.vet_to_stack(v, 5);
-    cout << "vet_to_stack (top to bottom): ";
+    cout << "vet_to_stack: ";
     while (!stk.empty()) {
         cout << stk.top() << " ";
         stk.pop();
@@ -28,13 +28,14 @@ int main() {
     cout << endl;
 
     // Teste list_concat
-    list<int> l1 = lista.vet_to_list(v, 3); // 1 2 3
-    list<int> l2 = lista.vet_to_list(v+3, 2); // 4 5
+    list<int> l1 = {1, 2, 3, 4};
+    list<int> l2 = {5, 6};
     vector<int> concat = lista.list_concat(l1, l2);
     cout << "list_concat: ";
     for (int n : concat) cout << n << " ";
     cout << endl;
 
+    
     // Teste check_brackets
     string expr1 = "(1+2)*(3+4)";
     string expr2 = "(1+2*(3+4)";
@@ -66,6 +67,6 @@ int main() {
     // Teste posfix_to_infix
     string posfix2 = "2 3 4 * +"; // 2 + (3*4)
     cout << "posfix_to_infix: " << lista.posfix_to_infix(posfix2) << endl;
-
+    
     return 0;
 }

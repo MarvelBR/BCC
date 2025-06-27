@@ -8,203 +8,242 @@
 using namespace std;
 
 // 1) Função que imprime 10 vezes a mesma linha de texto
-void print_txt(char* text, int num = 10) {
-    if (num <= 0) return;
+void print_txt(char *text, int num = 10)
+{
+    if (num <= 0)
+    {
+        return;
+    }
     cout << text << endl;
     print_txt(text, num - 1);
 }
 
-// 2) Função que imprime contagem de 0 à 50, num vezes
-void count(int num) {
-    if (num <= 0) return;
-    
-    // Função auxiliar para contar de 0 a 50
-    static void (*countTo50)(int) = [](int n) {
-        if (n > 50) return;
-        cout << n << " ";
-        countTo50(n + 1);
-    };
-    
-    countTo50(0);
-    cout << endl;
+// Função auxiliar da 2 da 3
+void countAux(int x, int num)
+{
+    if (num <= 0)
+    {
+        return;
+    }
+    cout << x << " ";
+    x++;
+    countAux(x, num - 1);
+};
+
+// 2) Função que imprime uma contagem de 0 à 50, num vezes
+void count(int num)
+{
+    if (num <= 0)
+    {
+        return;
+    }
+    countAux(0, 51);
     count(num - 1);
 }
 
-// 3) Função que imprime contagem de 0 à max, num vezes
-void count_max(int num, int max) {
-    if (num <= 0) return;
-    
-    // Função auxiliar para contar de 0 a max
-    static void (*countToMax)(int, int) = [](int n, int m) {
-        if (n > m) return;
-        cout << n << " ";
-        countToMax(n + 1, m);
-    };
-    
-    countToMax(0, max);
-    cout << endl;
+// 3) Função que imprime uma contagem de 0 à max, num vezes
+void count_max(int num, int max)
+{
+    if (num <= 0)
+        return;
+    countAux(0, max + 1);
     count_max(num - 1, max);
 }
 
-// 4) Função que imprime todos os elementos de um vector
-void print_vec(vector<int>& vec, int idx = 0) {
-    if (idx >= vec.size()) return;
+// 4) Função que imprime todos os elementos de uma Lista Sequencial (vector)
+void print_vec(vector<int> &vec, int idx = 0)
+{
+    if (idx < 0 || idx > vec.size() - 1)
+    {
+        return;
+    }
     cout << vec[idx] << " ";
     print_vec(vec, idx + 1);
 }
 
-// 5) Função que imprime elementos pares de um vector em ordem inversa
-void print_even(vector<int>& vec, int idx = 0) {
-    if (idx >= vec.size()) return;
-    print_even(vec, idx + 1);
-    if (vec[idx] % 2 == 0) {
+// 5) Função que imprime todos os elementos pares de uma Lista Sequencial (vector), em ordem inversa
+void print_even(vector<int> &vec, int idx)
+{
+    if (idx < 0 || idx > vec.size())
+    {
+        return;
+    }
+    if (vec[idx] % 2 == 0)
+    {
         cout << vec[idx] << " ";
     }
+    print_even(vec, idx - 1);
 }
 
-// 6) Função que imprime todos os elementos de uma list
-void print_list(list<int> &lst, list<int>::iterator it) {
-    if (it == lst.end()) return;
+// 6) Função que imprime todos os elementos de uma Lista Duplamente Encadeada (list)
+void print_list(list<int> &lst, list<int>::iterator &it)
+{
+    if (it == lst.end())
+    {
+        return;
+    }
     cout << *it << " ";
-    print_list(lst, ++it);
+    // it++;  (É um pós-incremento, após a expressão incrementa)
+    print_list(lst, ++it); //++it é um pré-incremento, antes da expressão incrementa!
 }
 
-// 7) Função que imprime elementos de uma forward_list em ordem inversa
-void print_rev(forward_list<int> &lst, forward_list<int>::iterator it) {
-    if (it == lst.end()) return;
-    auto next_it = it;
-    ++next_it;
-    print_rev(lst, next_it);
-    cout << *it << " ";
+// 7) Função que imprime todos os elementos de uma Lista Simplesmente Encadeada (forward_list), em ordem inversa
+void print_rev(forward_list<int> &lst, forward_list<int>::iterator &it)
+{
+    if (it == lst.end())
+    {
+        return;
+    }
+    auto current = it;
+    
+    print_rev(lst, ++it);
+    
+    cout << *current << " ";
 }
 
-// 8) Função que remove todos os elementos de um vector
-void remove_all(vector<int> &vec) {
-    if (vec.empty()) return;
+// 8) Função recursiva que remove todos os elementos, um a um de um vetor
+void remove_all(vector<int> &vec)
+{
+    if (vec.empty())
+    {
+        return;
+    }
     vec.pop_back();
     remove_all(vec);
 }
 
-// 9) Função que imprime todos os elementos de uma stack
-void print_stack(stack<int> &stk) {
-    if (stk.empty()) return;
-    int top = stk.top();
-    cout << top << " ";
+// 9) Função recursiva que imprime todos os elementos de uma Pilha (stack)
+void print_stack(stack<int> &stk)
+{
+    if (stk.empty())
+    {
+        return;
+    }
+    int topElem = stk.top();
     stk.pop();
+    cout << topElem << " ";
+
     print_stack(stk);
-    stk.push(top);
+
 }
 
-// 10) Função que transfere elementos de stack1 para stack2 em ordem inversa
-void push_to(stack<int> &stk1, stack<int> &stk2) {
-    if (stk1.empty()) return;
-    int top = stk1.top();
-    stk1.pop();
-    stk2.push(top);
-    push_to(stk1, stk2);
+// 10) Função que desempilha todos os elementos do stack1 e os empilha, em ordem inversa, na stack2
+void push_to(stack<int> &stk, stack<int> &stk2)
+{
+    if (stk.empty())
+    {
+        return;
+    }
+    int topElem = stk.top();
+    stk.pop();
+
+    stk2.push(topElem);
+
+    push_to(stk, stk2);
 }
 
-// 11) Função que copia conteúdo de vec1 para vec2
-void copy(vector<int> &vec1, int idx, vector<int> &vec2) {
-    if (idx >= vec1.size()) return;
+// 11) Função que copia o conteúdo de vec1 para vec2
+void copyVec(vector<int> &vec1, int idx, vector<int> &vec2)
+{
+    if (idx < 0 || idx > vec1.size() - 1) return;
     vec2.push_back(vec1[idx]);
-    copy(vec1, idx + 1, vec2);
+    copyVec(vec1, idx + 1, vec2);
 }
 
-// 12) Função que copia conteúdo de list1 para list2
-void copy(list<int> &list1, list<int>::iterator it, list<int> &list2) {
-    if (it == list1.end()) return;
+// 12) função recursiva que copia o conteúdo de list1 para list2
+void copyList(list<int> &list1, list<int>::iterator &it, list<int> &list2){
+    if (it == list1.end())
+    {
+        return;
+    }
     list2.push_back(*it);
-    copy(list1, ++it, list2);
+    copyList(list1, ++it, list2);
 }
 
-int main() {
-    // Teste das funções
-    
-    // 1) Teste print_txt
-    cout << "1) print_txt:\n";
+int main()
+{
+
+    cout << "Ex 1:" << endl;
     char text[] = "Hello, Recursion!";
     print_txt(text);
     cout << endl;
-    
+
     // 2) Teste count
     cout << "2) count:\n";
     count(3);
     cout << endl;
-    
+
     // 3) Teste count_max
     cout << "3) count_max:\n";
     count_max(2, 5);
     cout << endl;
-    
+
     // 4) Teste print_vec
     cout << "4) print_vec:\n";
-    vector<int> vec = {1, 2, 3, 4, 5};
+    vector<int> vec = {1, 2, 3, 4};
     print_vec(vec);
-    cout << endl << endl;
-    
+    cout << endl;
+
     // 5) Teste print_even
     cout << "5) print_even:\n";
-    vector<int> vec_even = {1, 2, 3, 4, 5, 6, 7, 8};
-    print_even(vec_even);
-    cout << endl << endl;
-    
+    print_even(vec, vec.size() - 1);
+    cout << endl;
+
     // 6) Teste print_list
     cout << "6) print_list:\n";
-    list<int> lst = {10, 20, 30, 40, 50};
-    auto it = lst.begin();
-    print_list(lst, it);
-    cout << endl << endl;
-    
+    list<int> list1 = {5, 6, 7, 8};
+    auto it = list1.begin();
+    print_list(list1, it);
+    cout << endl;
+
     // 7) Teste print_rev
     cout << "7) print_rev:\n";
-    forward_list<int> flst = {100, 200, 300, 400};
-    auto fit = flst.begin();
-    print_rev(flst, fit);
-    cout << endl << endl;
-    
+    forward_list<int> flist1 = {5, 6, 7, 8};
+    auto fit = flist1.begin();
+    print_rev(flist1, fit);
+    cout << endl;
+
     // 8) Teste remove_all
     cout << "8) remove_all:\n";
-    vector<int> vec_to_remove = {1, 2, 3};
-    cout << "Antes: Tamanho = " << vec_to_remove.size() << endl;
-    remove_all(vec_to_remove);
-    cout << "Depois: Tamanho = " << vec_to_remove.size() << endl << endl;
-    
+    vector<int> vec2 = {1, 2, 3, 4};
+    remove_all(vec2);
+    cout << "Tamanho final do vetor: " << vec2.size() << endl;
+
     // 9) Teste print_stack
     cout << "9) print_stack:\n";
-    stack<int> stk;
-    for (int i = 1; i <= 5; i++) stk.push(i);
-    print_stack(stk);
-    cout << endl << endl;
-    
+    stack<int> s;
+    s.push(10);
+    s.push(20);
+    s.push(30);
+
+    print_stack(s);
+    cout << endl;
+
     // 10) Teste push_to
     cout << "10) push_to:\n";
-    stack<int> stk1, stk2;
-    for (int i = 1; i <= 5; i++) stk1.push(i);
-    cout << "Antes: stk1 size = " << stk1.size() << ", stk2 size = " << stk2.size() << endl;
-    push_to(stk1, stk2);
-    cout << "Depois: stk1 size = " << stk1.size() << ", stk2 size = " << stk2.size() << endl;
-    cout << "Conteúdo de stk2: ";
-    print_stack(stk2);
-    cout << endl << endl;
-    
-    // 11) Teste copy (vector)
-    cout << "11) copy (vector):\n";
-    vector<int> vec1 = {5, 10, 15}, vec2;
-    copy(vec1, 0, vec2);
-    cout << "vec2: ";
-    print_vec(vec2);
-    cout << endl << endl;
-    
-    // 12) Teste copy (list)
-    cout << "12) copy (list):\n";
-    list<int> list1 = {50, 100, 150}, list2;
-    auto lit = list1.begin();
-    copy(list1, lit, list2);
-    cout << "list2: ";
-    auto lit2 = list2.begin();
-    print_list(list2, lit2);
+    stack<int> s1, s2;
+    s1.push(1);
+    s1.push(2);
+    s1.push(3);
+    push_to(s1, s2);
+    print_stack(s2);
     cout << endl;
     
-    return 0;
+    // 11) Teste copyVec
+    cout << "11) copyVec:\n";
+    vector <int> vec3 = {10, 11, 12};
+    vector <int> vec4;
+    copyVec(vec3, 0 ,vec4);
+    print_vec(vec4);
+    cout << endl;
+
+    // 12) Teste copyList
+    cout << "12) copyList:\n";
+    list <int> list3 = {10, 11, 12};
+    list <int> list4;
+    auto it3 = list3.begin();
+    copyList(list3, it3 ,list4);
+    auto it4 = list4.begin();
+    print_list(list4, it4);
+    cout << endl;
 }
