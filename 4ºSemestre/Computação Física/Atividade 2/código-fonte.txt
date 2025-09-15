@@ -1,0 +1,90 @@
+long lastClick = 0;
+char lastSwState = 1;
+int lastClk = HIGH;
+unsigned long swPressTime = 0;
+bool swPressed = false;
+bool longPressHandled = false;
+
+void setup() {
+DDRD = 0xFF;       // Todos os pinos do PORTD como saída
+PORTD = 0x00;      // Todos os LEDs apagados
+
+DDRC &= ~(1 << PC2); // CLK
+DDRC &= ~(1 << PC1); // DT
+DDRC &= ~(1 << PC0); // SW
+
+PORTC |= (1 << PC2); // Pull-up
+PORTC |= (1 << PC1);
+PORTC |= (1 << PC0);
+
+}
+
+void loop() {
+int newClk = (PINC & (1 << PC2)) ? HIGH : LOW;
+int dtValue = (PINC & (1 << PC1)) ? HIGH : LOW;
+int swValue = (PINC & (1 << PC0)) ? HIGH : LOW;
+
+if (newClk != lastClk) {
+  lastClk = newClk;
+
+  if (newClk == LOW) {
+    if (dtValue == HIGH) {
+      if (PORTD != 0x00) {
+      // Apagar da direita para esquerda (bit mais à esquerda aceso)
+    for (int i = 0; i < 8; i++) {
+     if (PORTD & (1 << i)) {
+       PORTD &= ~(1 << i); // Apaga o bit
+       break;
+     }
+   }
+      }
+    } else {
+      if (PORTD == 0x00) {
+        PORTD = 0x01;
+      } else if ((PORTD & 0x80) == 0) {
+        PORTD = (PORTD << 1) | 0x01;
+      }
+    }
+  }
+}
+
+
+if (swValue != lastSwState && (millis() - lastClick) > 20) {
+  lastClick = millis();
+
+  if (swValue == LOW) {
+    swPressTime = millis();
+    swPressed = true;
+    longPressHandled = false;
+  } else {
+    if (swPressed) {
+      unsigned long duration = millis() - swPressTime;
+
+      if (duration < 900) {
+        PORTD = ~PORTD;
+      } else if (!longPressHandled) {
+        PORTD = 0x00;
+      }
+
+      swPressed = false;
+    }
+  }
+
+  lastSwState = swValue;
+}
+
+if (swPressed && !longPressHandled) {
+  if ((millis() - swPressTime) >= 900) {
+    PORTD = 0x00;
+    longPressHandled = true;
+  }
+}
+}
+
+
+
+
+
+
+
+
