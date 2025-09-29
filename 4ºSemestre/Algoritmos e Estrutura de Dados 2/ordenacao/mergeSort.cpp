@@ -70,7 +70,12 @@ void mergeSort(int* v, int p, int r) {
 
 int main(int argc, char** argv) {
 
-    int n = stoi(argv[1]);
+    int n = stoi(argv[1]); //argv é oq faz a gente escrever algo depois do nome do arquivo no terminal
+    // nesse caso vai ver quantos valores vai ter o vetor
+    // Ex para rodar: g++ mergeSort.cpp -o merge
+        // ./merge 10
+
+    //Para ver o tempo fazer um: ./merge n (número de valores)
 
     vector<int> v = gerar_vetor_aleatorio(n, 99, n*100);
     imprimir_vetor(v.data(), n);

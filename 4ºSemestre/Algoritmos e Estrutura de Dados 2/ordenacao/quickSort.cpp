@@ -37,7 +37,7 @@ void quickSort(int* v, int p, int r){
 
 int main(int argc, char** argv) {
 
-    int n = stoi(argv[1]);
+    int n = stoi(argv[1]); //argv é oq faz a gente escrever algo depois do nome do arquivo no terminal
 
     vector<int> v = gerar_vetor_aleatorio(n, 99, n*100);
     quickSort(v.data(), 0, n-1);
