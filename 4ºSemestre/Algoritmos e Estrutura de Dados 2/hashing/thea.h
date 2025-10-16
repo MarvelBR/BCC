@@ -6,19 +6,54 @@
 class TabHashEndAberto {
 public:
     //Construtor: inicializa uma nova tabela com tamanho m
-    TabHashEndAberto(int tamanho, float limiar = 0.5);
+    TabHashEndAberto(int tamanho, float limiar = 0.5){
+        this->m = tamanho;
+        this->n = 0;
+        this->tabela = new Elemento[this->m];
+        for (int i = 0; i < tamanho; i++)
+        {
+            this->tabela[i].estado = Estado::LIVRE;
+        }
+        
+    }
 
     //Destrutor: libera todos os recursos alocados para a tabela
-    ~TabHashEndAberto(); 
+    ~TabHashEndAberto(){
+        delete[] this->tabela;
+    } 
     
     //Insere um novo par (chave, valor) na tabela
-    void inserir(int chave, int valor);
+    void inserir(int chave, int valor){
+        int pos = buscar_pos(chave);
+        if (pos >= 0)
+        {
+            this->tabela[pos].valor = valor;
+            return;
+        }
+        int h = hash(chave);
+        while (this->tabela[h].estado == Estado::OCUPADO)
+        {
+            h++;
+            h = h % this->m;
+        }
+        this->tabela[h].chave = chave;
+        this->tabela[h].valor = valor;
+        this->tabela[h].estado = Estado::OCUPADO;
+        this->n++;
+    }
     
     //Remove o par com a chave da tabela
     void remover(int chave);
     
     //Busca o valor associado a chave na tabela
-    std::pair<int,int> buscar(int chave);
+    std::pair<int,int> buscar(int chave){
+        int pos = buscar_pos(chave);
+        if (pos >= 0)
+        {
+            return std::make_pair(this->tabela[pos].chave, this->tabela[pos].valor);
+        }
+        return this->invalido;
+    }
     
     //Imprime a tabela
     void imprimir(){
@@ -43,7 +78,7 @@ public:
     }
 
     //par chave-valor inválido para indicar que a chave não foi encontrada
-    std::pair<int,int> invalido;
+    std::pair<int,int> invalido = {-1, -1};
 
     // retorna as chaves da tabela
     std::vector<int> chaves();
@@ -74,13 +109,28 @@ private:
 
     Elemento *tabela; // tabela hash
 
-    int hash(int chave, int k); //função hash
+    //função hash
+    int hash(int chave){
+        return chave % this->m;
+    } 
 
     // redimensiona a tabela para o novo tamanho (novo_m)
     void redimensionar(int novo_m); 
 
     //retorna a posição que a chave ocupa na tabela. 
     //(ou -1 se a chave não estiver na tabela)
-    int buscar_pos(int chave);
+    int buscar_pos(int chave){
+        int h = this->hash(chave);
+        while (this->tabela[h].estado != Estado::LIVRE)
+        {
+            if (this->tabela[h].estado == Estado::OCUPADO && this->tabela[h].chave == chave)
+            {
+                return h;
+            }
+            h++;
+            h = h % this->m;
+        }
+        return -1;
+    }
     
 };

@@ -2,7 +2,7 @@
 #include "thea.h"
 #include "print_pair.h"
 #include <cstdlib>
-
+/*
 void test1(){
     TabHashEndAberto tab(10);
 
@@ -106,13 +106,27 @@ void test3(int argc, char** argv){
     tab.imprimir();
     tab.imprimir_info();
 }
-
+*/
 
 int main(int argc, char** argv){
     
     //test1();
     //test2();
-    test3(argc, argv);
+    //test3(argc, argv);
+
+    TabHashEndAberto th(10);
+
+    th.inserir(10,0);
+    th.inserir(21,0);
+    th.inserir(44,0);
+    th.inserir(32,0);
+    th.inserir(12,0);
+    th.inserir(37,0);
+    th.inserir(43,0);
+    th.inserir(23,0);
+    th.inserir(54,0);
+
+    th.imprimir();
 
     return 0;
 }
