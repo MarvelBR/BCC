@@ -18,8 +18,6 @@ int pos_maior(int *v, int ini, int fim){
     return maior;
 }
 
-
-
 void SelectionSort(int *v, int n){
     for (int i = n-1; i > 0; i--)
     {
