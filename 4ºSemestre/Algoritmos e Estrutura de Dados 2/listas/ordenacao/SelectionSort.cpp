@@ -11,13 +11,12 @@ void selectionSortMin(int array[], int size) {
     int min_idx = step;
     for (int i = step + 1; i < size; i++) {
 
-      // To sort in descending order, change > to < in this line.
-      // Select the minimum element in each loop.
+      // Seleciona o menor elemento em cada loop.
       if (array[i] < array[min_idx])
         min_idx = i;
     }
 
-    // put min at the correct position
+    // coloca o menor na posição correta
     swap(array[min_idx], array[step]);
   }
 }
@@ -28,12 +27,12 @@ void selectionSortMax(int array[], int size) {
     int max_idx = step;
     for (int i = 0; i < step; i++) {
 
-      // Select the maximum element in each loop.
+      // Seleciona o maior elemento em cada loop.
       if (array[i] > array[max_idx])
         max_idx = i;
     }
 
-    // put max at the correct position
+    // coloca o maior na posição correta
     swap(array[max_idx], array[step]);
   }
 }
