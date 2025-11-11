@@ -11,8 +11,7 @@ bool saoIguais(std::vector<int>& arr1, std::vector<int>& arr2){
         return false;
     }
     
-    std::unordered_set<int> elementos; // Insere todos os elementos de arr1 no conjunto
-    
+    std::unordered_set<int> elementos;
     //std::unordered_set<int> elementos(arr1.begin(), arr1.end()); // Insere todos os elementos de arr1 no conjunto
     // Aqui funcionaria também! Colocando um iterador do começo ao fim do vetor.
 
