@@ -91,8 +91,9 @@ void test2(){
 
     std::cout << std::endl;    
 }
-
+*/
 void test3(int argc, char** argv){
+    // lembrando na hora de rodar o arquivo colocar 3 parâmetros tipo 3 10 0.5
     int m = atoi(argv[1]);
     int n = atoi(argv[2]);
     float limiar = atof(argv[3]);
@@ -106,27 +107,27 @@ void test3(int argc, char** argv){
     tab.imprimir();
     tab.imprimir_info();
 }
-*/
+
 
 int main(int argc, char** argv){
     
     //test1();
     //test2();
-    //test3(argc, argv);
+    test3(argc, argv);
 
-    TabHashEndAberto th(10);
+    // TabHashEndAberto th(10, 0.5);
 
-    th.inserir(10,0);
-    th.inserir(21,0);
-    th.inserir(44,0);
-    th.inserir(32,0);
-    th.inserir(12,0);
-    th.inserir(37,0);
-    th.inserir(43,0);
-    th.inserir(23,0);
-    th.inserir(54,0);
+    // th.inserir(10,0);
+    // th.inserir(21,0);
+    // th.inserir(44,0);
+    // th.inserir(32,0);
+    // th.inserir(12,0);
+    // th.inserir(37,0);
+    // th.inserir(43,0);
+    // th.inserir(23,0);
+    // th.inserir(54,0);
 
-    th.imprimir();
+    //th.imprimir();
 
     return 0;
 }
