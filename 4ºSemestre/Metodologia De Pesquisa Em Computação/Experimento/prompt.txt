@@ -1,0 +1,16 @@
+Fiz um recomendador de linguagens usando perguntas if-then com forward chaining, atribuindo "pontos" para cada linguagem dependendo 
+da relevância dela para pergunta, pode me ajudar a fazer esse "ranking" do top 5 mais recomendadas para cada pergunta? 
+Obs: Caso não tenha 5 recomendações, coloque somente top 3 por exemplo, com +5, +4 e +3! E caso tenha empate, pode colocar com a mesma 
+pontuação, por exemplo 2 linguagens com +5. As perguntas são: 
+"Q01": "Você quer desenvolver Web Frontend? (s/n): ", 
+"Q02": "Você quer desenvolver Web Backend? (s/n): ", 
+"Q03": "Você quer desenvolver Aplicações Desktop? (s/n): ", 
+"Q04": "Você quer desenvolver Aplicações Mobile? (s/n): ", 
+"Q05": "Você quer desenvolver Jogos? (s/n): ", 
+"Q06": "Você quer desenvolver IA? (s/n): ", 
+"Q07": "Você quer trabalhar com Data Science? (s/n): ", 
+"Q08": "Você quer trabalhar com Big Data? (s/n): ", 
+"Q09": "Você quer usar Programação Orientada a Objetos? (s/n): ", 
+"Q10": "Você quer usar uma linguagem interpretada? (s/n): ", 
+"Q11": "Você quer usar uma linguagem compilada? (s/n): " 
+E as linguagens que deixe pré definidas são: Python, JavaScript, TypeScript, Java, C#, C++, C, PHP, Go, Rust, Ruby, Kotlin e Swift.
