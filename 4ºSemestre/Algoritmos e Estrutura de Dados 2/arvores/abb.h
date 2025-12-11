@@ -2,8 +2,8 @@
 
 #include <iostream>
 
-template<typename C, typename V> //Template para classe
-class ABB; //precisa vir antes para poder usar o friend class ABB, pois se não daria erro no NoABB de não declarada
+template<typename C, typename V>
+class ABB;
 
 template <typename C, typename V>
 class NoABB
@@ -14,7 +14,7 @@ class NoABB
             esq(nullptr), dir(nullptr) {}
 
         ~NoABB(){
-            //implementar depois
+            
         }
 
         C getChave() { return chave; }
@@ -26,7 +26,7 @@ class NoABB
         NoABB *esq;
         NoABB *dir;
 
-    friend class ABB<C, V>; //permite que a classe ABB acesse os valores privados da classe NoABB
+    friend class ABB<C, V>;
 };
 
 template <typename C, typename V>
@@ -34,36 +34,32 @@ class ABB
 {
     public:
         ABB(){
+            this->n = 0;
             this->raiz = nullptr;
         }
         ~ABB() { delete raiz; }
 
         //insere o par (chave, valor) na árvore
         void inserir(C chave, V valor){
-            this->raiz = inserirNo(this->raiz, chave, valor);
+            this->raiz = this->inserirNo(this->raiz, chave, valor);
         }
         //retorna o endereço do nó com a chave especificada
         NoABB<C, V>* buscar(C chave){
-            NoABB<C, V>* no = this->raiz;
-
-            while (no != nullptr)
-            {
-                if (chave == no->chave)
-                {
-                    break; //achou
+            NoABB<C, V>* n = this->raiz;
+            while(n != nullptr){
+                if(chave == n->chave){
+                    break;
                 }
-                if (chave > no->chave)
-                {
-                    no = no->dir;
+                if(chave < n->chave){
+                    n = n->esq;
                 }
                 else{
-                    no = no->esq;
+                    n = n->dir;
                 }
-                
             }
-            // se não achar, o nó vira nullptr então retorna nullptr, se acha retorna o nó.
-            return no; 
+            return n;
         }
+
         //remove o nó com a chave especificada
         void remover(C chave);
         //imprime a árvore
@@ -93,30 +89,54 @@ class ABB
         NoABB<C, V>* antecessor(NoABB<C, V>* no);
 
         //retorna o número de nós da árvore
-        int tamanho();
+        int tamanho(){
+            return tamanho(this->raiz);
+        }
+
         //retorna true se a árvore estiver vazia
         bool vazia();
 
+        int altura(){
+            return altura(this->raiz);
+        }
+
     private:
 
+        int altura(NoABB<C,V>* n){
+            if(n == nullptr){
+                return 0;
+            }
+            int esq = altura(n->esq);
+            int dir = altura(n->dir);
+            if(esq > dir)
+                return esq+1;
+            return dir+1;
+        }
+
+        int tamanho(NoABB<C,V>* n){
+            if(n == nullptr){
+                return 0;
+            }
+            int esq = tamanho(n->esq);
+            int dir = tamanho(n->dir);
+            return esq + dir + 1;
+        }
+
         NoABB<C, V>* inserirNo(NoABB<C, V>* no, C chave, V valor){
-            if (no == nullptr)
-            {
-                return new NoABB<C,V>(chave,valor);
+            if(no == nullptr){
+                return new NoABB<C,V>(chave, valor);
             }
-            if (chave < no->chave)
-            {
-                no->esq = inserirNo(no->esq, chave, valor);
-            }
-            else if (chave > no->chave)
-            {
-                no->dir = inserirNo(no->dir, chave, valor);
-            }
-            else{ //cai aqui se for igual!
+            if(chave == no->chave){
                 no->valor = valor;
             }
-            
+            else if(chave < no->chave){
+                no->esq = inserirNo(no->esq, chave, valor);
+            }
+            else{
+                no->dir = inserirNo(no->dir, chave, valor);
+            }
             return no;
+
         }
         NoABB<C, V>* removerNo(NoABB<C, V>* no, C chave);
         void imprimirNo(NoABB<C, V> *no, int nivel, char lado){
@@ -135,5 +155,6 @@ class ABB
         }
 
         NoABB<C, V>* raiz;
+        int n;
 };
 
