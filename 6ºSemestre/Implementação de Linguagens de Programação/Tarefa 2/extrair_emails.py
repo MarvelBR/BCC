@@ -60,7 +60,7 @@ def main():
     for i, (nome, email) in enumerate(alunos, start=1):
         print(f"{i:2d}. {nome:<35} -> {email}")
 
-    print("\nEndereços de e-mail):")
+    print("\nEndereços de e-mail:")
     for _, email in alunos:
         print(email)
 
