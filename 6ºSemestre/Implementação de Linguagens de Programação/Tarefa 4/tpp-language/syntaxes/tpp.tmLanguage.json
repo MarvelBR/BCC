@@ -1,0 +1,135 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "TPP",
+  "scopeName": "source.tpp",
+  "fileTypes": ["tpp"],
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#numbers" },
+    { "include": "#keywords-type" },
+    { "include": "#keywords-conditional" },
+    { "include": "#keywords-loop" },
+    { "include": "#keywords-io" },
+    { "include": "#keywords-return" },
+    { "include": "#function-name" },
+    { "include": "#operators" },
+    { "include": "#punctuation" },
+    { "include": "#identifiers" }
+  ],
+  "repository": {
+    "comments": {
+      "name": "comment.block.tpp",
+      "begin": "\\{",
+      "end": "\\}",
+      "captures": {}
+    },
+
+    "numbers": {
+      "patterns": [
+        {
+          "comment": "NUM_NOTACAO_CIENTIFICA",
+          "name": "constant.numeric.scientific.tpp",
+          "match": "\\b[0-9]+\\.[0-9]+[eE][+-]?[0-9]+\\b"
+        },
+        {
+          "comment": "NUM_PONTO_FLUTUANTE",
+          "name": "constant.numeric.float.tpp",
+          "match": "\\b[0-9]+\\.[0-9]+\\b"
+        },
+        {
+          "comment": "NUM_INTEIRO",
+          "name": "constant.numeric.integer.tpp",
+          "match": "\\b[0-9]+\\b"
+        }
+      ]
+    },
+
+    "keywords-type": {
+      "comment": "tipo ::= INTEIRO | FLUTUANTE",
+      "name": "storage.type.tpp",
+      "match": "\\b(inteiro|flutuante)\\b"
+    },
+
+    "keywords-conditional": {
+      "comment": "se ::= SE expressao ENTAO corpo [SENAO corpo] FIM",
+      "name": "keyword.control.conditional.tpp",
+      "match": "\\b(se|então|senão|senao|fim)\\b"
+    },
+
+    "keywords-loop": {
+      "comment": "repita ::= REPITA corpo ATE expressao",
+      "name": "keyword.control.loop.tpp",
+      "match": "\\b(repita|até|ate)\\b"
+    },
+
+    "keywords-io": {
+      "comment": "leia ::= LEIA (var) | escreva ::= ESCREVA (expressao)",
+      "name": "keyword.control.io.tpp",
+      "match": "\\b(leia|escreva)\\b"
+    },
+
+    "keywords-return": {
+      "comment": "retorna ::= RETORNA (expressao)",
+      "name": "keyword.control.return.tpp",
+      "match": "\\b(retorna)\\b"
+    },
+
+    "function-name": {
+      "comment": "Identificador seguido de '(' -> nome de função, cobre tanto declaracao_funcao (cabecalho) quanto chamada_funcao",
+      "name": "entity.name.function.tpp",
+      "match": "\\b[a-zA-Z_][a-zA-Z0-9_]*\\b(?=\\s*\\()"
+    },
+
+    "operators": {
+      "patterns": [
+        {
+          "comment": "atribuicao ::= var \":=\" expressao",
+          "name": "keyword.operator.assignment.tpp",
+          "match": ":="
+        },
+        {
+          "comment": "operador_relacional",
+          "name": "keyword.operator.relational.tpp",
+          "match": "<>|<=|>=|<|>|="
+        },
+        {
+          "comment": "operador_logico e operador_negacao",
+          "name": "keyword.operator.logical.tpp",
+          "match": "&&|\\|\\||!"
+        },
+        {
+          "comment": "operador_soma e operador_multiplicacao",
+          "name": "keyword.operator.arithmetic.tpp",
+          "match": "[+\\-*/]"
+        }
+      ]
+    },
+
+    "punctuation": {
+      "patterns": [
+        {
+          "name": "punctuation.section.parens.tpp",
+          "match": "[()]"
+        },
+        {
+          "name": "punctuation.section.brackets.tpp",
+          "match": "[\\[\\]]"
+        },
+        {
+          "name": "punctuation.separator.comma.tpp",
+          "match": ","
+        },
+        {
+          "name": "punctuation.separator.colon.tpp",
+          "match": ":"
+        }
+      ]
+    },
+
+    "identifiers": {
+      "comment": "ID ::= letra (letra | digito | '_')*",
+      "name": "variable.other.tpp",
+      "match": "\\b[a-zA-Z_][a-zA-Z0-9_]*\\b"
+    }
+  }
+}

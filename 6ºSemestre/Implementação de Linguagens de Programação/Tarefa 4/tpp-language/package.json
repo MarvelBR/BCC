@@ -1,0 +1,41 @@
+{
+  "name": "tpp-language",
+  "displayName": "TPP Language Support",
+  "description": "Syntax highlighting para a linguagem TPP (linguagem didática usada na disciplina de Compiladores/OPT011 - UTFPR Campo Mourão)",
+  "version": "0.1.0",
+  "publisher": "local-dev",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "tpp",
+    "compiladores",
+    "utfpr",
+    "syntax highlighting"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "tpp",
+        "aliases": [
+          "TPP",
+          "tpp"
+        ],
+        "extensions": [
+          ".tpp"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "tpp",
+        "scopeName": "source.tpp",
+        "path": "./syntaxes/tpp.tmLanguage.json"
+      }
+    ]
+  }
+}
