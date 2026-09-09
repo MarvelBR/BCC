@@ -13,7 +13,7 @@ da documentação oficial do VS Code, usando uma gramática **TextMate**
 ## O que é destacado
 
 A gramática (`syntaxes/tpp.tmLanguage.json`) foi construída em cima da
-BNF comentada da linguagem (`ebnf-tpp-symbols`)[https://docs.google.com/document/d/1e7_M-bD1RUbJAnyR8rZyJ35vKbYEN6KQG4l5L8FQ7_I/edit?tab=t.0] e reconhece:
+BNF comentada da linguagem [`ebnf-tpp-symbols`](https://docs.google.com/document/d/1e7_M-bD1RUbJAnyR8rZyJ35vKbYEN6KQG4l5L8FQ7_I/edit?tab=t.0) e reconhece:
 
 | Categoria | Exemplos | Escopo TextMate |
 |---|---|---|
@@ -67,16 +67,4 @@ code --install-extension tpp-language-0.1.0.vsix
 
 Ou pela interface: `Ctrl+Shift+P` → **Extensions: Install from VSIX...**
 → selecione o arquivo `.vsix` gerado.
-
-## Testando / depurando a gramática
-
-O VS Code tem um inspetor de escopos embutido, ótimo para conferir se
-um token está caindo na categoria certa:
-
-`Ctrl+Shift+P` → **Developer: Inspect Editor Tokens and Scopes**
-
-Clique em qualquer palavra do seu `.tpp` aberto e ele mostra o escopo
-TextMate atribuído (ex: `keyword.control.conditional.tpp`) e qual regra
-da gramática gerou aquele highlight — super útil para depurar se algo
-não estiver colorindo do jeito esperado.
 
