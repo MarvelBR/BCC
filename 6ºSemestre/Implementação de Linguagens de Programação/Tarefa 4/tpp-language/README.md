@@ -1,4 +1,6 @@
-# TPP Language Support (VS Code)
+# Suporte à linguagem TPP (VS Code)
+
+Aluno: Erick Molina Gehring
 
 Extensão de **Syntax Highlighting** para a linguagem **TPP**, linguagem
 didática usada na disciplina *OPT011 – Implementação de Linguagens de
@@ -11,7 +13,7 @@ da documentação oficial do VS Code, usando uma gramática **TextMate**
 ## O que é destacado
 
 A gramática (`syntaxes/tpp.tmLanguage.json`) foi construída em cima da
-BNF comentada da linguagem (`ebnf-tpp-symbols`) e reconhece:
+BNF comentada da linguagem (`ebnf-tpp-symbols`)[https://docs.google.com/document/d/1e7_M-bD1RUbJAnyR8rZyJ35vKbYEN6KQG4l5L8FQ7_I/edit?tab=t.0] e reconhece:
 
 | Categoria | Exemplos | Escopo TextMate |
 |---|---|---|
@@ -30,10 +32,6 @@ BNF comentada da linguagem (`ebnf-tpp-symbols`) e reconhece:
 | Identificadores | `n`, `fat`, `dividendo` | `variable.other.tpp` |
 | Pontuação | `( ) [ ] , :` | `punctuation.*.tpp` |
 
-> Os comentários em TPP usam chaves `{ ... }` (visto nos exemplos do
-> professor, ex: `se n > 0 então {não calcula se n > 0}`), então a
-> gramática trata `{` e `}` como delimitadores de comentário de bloco,
-> não como parênteses de escopo (a linguagem não usa `{}` para blocos).
 
 ## Estrutura do pacote
 
@@ -47,7 +45,7 @@ tpp-language/
 │   ├── fatorial.tpp
 │   ├── resto.tpp
 │   └── soma_vetores.tpp
-└── README.md                    # este arquivo
+└── README.md
 ```
 
 ## Como instalar
