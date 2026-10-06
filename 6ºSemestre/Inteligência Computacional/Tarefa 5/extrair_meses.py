@@ -50,6 +50,47 @@ def processar_meses(caminho, saida):
                 # Pega apenas o nome do arquivo sem a extensão (ex: a1.bmp -> a1)
                 label = os.path.splitext(file)[0]
 
+                if label[0] == "a":
+                    if label[1] == "b":
+                        label = "Agosto"
+                    else:
+                        label = "Abril"
+
+                elif label[0] == "d":
+                    label = "Dezembro"
+
+                elif label[0] == "f":
+                    label = "Fevereiro"
+
+                elif label[0] == "j":
+                    if label[1] == "d":
+                        label = "Junho"
+
+                    elif label[1] == "t":
+                        label = "Julho"
+
+                    else:
+                        label = "Janeiro"
+
+                elif label[0] == "m":
+                    if label[1] == "d":
+                        label = "Maio"
+
+                    else:
+                        label = "Março"
+
+                elif label[0] == "n":
+                    label = "Novembro"
+
+                elif label[0] == "o":
+                    label = "Outubro"
+
+                elif label[0] == "s":
+                    label = "Setembro"
+
+                else:
+                    label = "Mês"
+
                 # Leitura da imagem mantendo os canais originais
                 imagem = cv2.imread(caminho_imagem, -1)
 
